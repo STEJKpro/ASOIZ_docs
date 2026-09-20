@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Playwright / browser-check artifacts
+.screenshots/
+.playwright-mcp/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors
+.vscode/
+.idea/
+
+# Env / secrets
+.env

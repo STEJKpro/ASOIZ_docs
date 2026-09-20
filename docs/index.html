@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>База знаний АСОИЗ</title>
+    <meta name="description" content="База знаний АСОИЗ" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@5/dist/themes/core.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/vue.min.css"> -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@5/dist/themes/addons/core-dark.min.css" media="(prefers-color-scheme: dark)" />
+    <style>
+      /* Sidebar collapse (docs/plugins/sidebar-collapse.js).
+         NOTE: intentionally NOT using the theme's `.collapse` class for OUR
+         state - on the v5 DOM (`li > p > a`) the theme rule
+         `.collapse:is(... li) > :not(a) { display:none }` hides the <p> link
+         wrapper and makes the group item disappear. `li.open` = expanded. */
+      .sidebar-nav li { position: relative; }
+      .sidebar-nav li.collapsible > ul:not(.app-sub-sidebar) { display: none; }
+      .sidebar-nav li.collapsible.open > ul:not(.app-sub-sidebar) { display: block; }
+      .sidebar-nav li.collapsible > p { position: relative; }
+      /* Core-bug patch: docsify@5 core (bundle #h handler) toggles class
+         `collapse` on ANY sidebar li that contains an `.app-sub-sidebar`
+         whenever its link is clicked (docsifyjs/docsify#2469-class toggle).
+         The theme then hides the `li > p` row wrapper -> the clicked item
+         "disappears". Keep the row visible; only the page-TOC list collapses,
+         which is what core intended. Specificity (0,2,2) beats the theme's
+         (0,2,1) rule. */
+      .sidebar-nav li.collapse > p { display: block; }
+      /* Chevron-state indication (NOT a fill): --sidebar-pagelink-bg-expanded
+         is the theme's transparent chevron gradient. Without this, an open
+         non-active group would still show the gray collapsed chevron painted
+         by the theme's default `a.page-link` background. */
+      .sidebar-nav li.collapsible.open > p > a.page-link,
+      .sidebar-nav li.collapsible.open > a.page-link {
+        background: var(--sidebar-pagelink-bg-expanded);
+      }
+      /* Toggle hit area: fully invisible (the theme paints the chevron glyph
+         on the link underneath, keyed on open/active - the button adds no
+         second glyph). Comfortable hit target, keyboard-only focus ring. */
+      /* Specificity (0,2,1) beats the theme's `button[type]` rule ((0,1,1) in
+         core + core-dark), which otherwise paints a solid gray rounded box
+         behind the hit area. */
+      button[type].sidebar-collapse-toggle,
+      .sidebar-collapse-toggle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+        color: transparent;
+        font-size: 0;
+        line-height: 0;
+        cursor: pointer;
+      }
+      button[type].sidebar-collapse-toggle:hover {
+        outline: none;
+        background: transparent;
+      }
+      .sidebar-collapse-toggle:focus-visible {
+        outline: 1px solid var(--theme-color, #42b983);
+      }
+    </style>
+  </head>
+  <body class="sidebar-chevron-left">
+    <div id="app"></div>
+    <script>
+      window.$docsify = {
+        name: "База знаний АСОИЗ",
+        loadSidebar: true,
+        sidebarDisplayLevel: 0, // 0 - все свернуто, 1 - раскрыт первый уровень страниц
+        subMaxLevel: 3,
+        auto2top: true,
+        // Asset links (/path/file.ext) must stay plain URLs: docsify@5 compiles
+        // every non-absolute link into a #/... hash route, which breaks file
+        // downloads. noCompileLinks lets any path-with-extension through
+        // verbatim (page links without extensions are still routed normally).
+        noCompileLinks: ["/.+\\.[a-z0-9]+"],
+        search: {
+          placeholder: "Поиск...",
+          noData: "Ничего не найдено",
+          depth: 3,
+        },
+      };
+    </script>
+    <!-- Docsify resource -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify@5/dist/docsify.min.js"></script>
+    <!-- Docsify plugins: the search plugin MUST come from /dist/ - the copy
+       under /lib/ in the 5.0.0 package is a stale v4-style build that calls
+       Docsify.dom.toggleClass (removed in v5) and crashes at runtime. -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify@5/dist/plugins/search.min.js"></script>
+    <!-- Sidebar collapse: replaces docsify-sidebar-collapse v1.3.5 (v4-era,
+       last published 2022; its `collapse` class hits the v5 theme rule
+       `.collapse > :not(a) { display:none }` which hides the `li > p > a`
+       link wrapper on collapse). -->
+    <script src="./plugins/sidebar-collapse.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@5/dist/plugins/zoom-image.min.js"></script>
+  </body>
+</html>
